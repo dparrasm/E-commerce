@@ -6,8 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class RegisterUser {
     constructor(private userRepository: IUserRepository) {}
 
-    async execute(user: User): Promise<User>{
-        const {email, name, password} = user
+    async execute(name: string, email: string, password: string): Promise<User>{
         const emailV0 = new Email(email)
 
         const existingUser = await this.userRepository.findByEmail(emailV0)
