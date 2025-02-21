@@ -1,13 +1,21 @@
 import { useState } from "react";
 import "./Register.css"
+import { UserService } from "@application/services/UserService";
+import { UserRepository } from "@infrastructure/data/UserRepository";
+import { RegisterUser } from "@application/usecases/RegisterUser";
 interface RegisterFormState {
     name: string;
     password: string;
     email: string;
 }
 
+const userRepository = new UserRepository();
+const registerUser = new RegisterUser(userRepository);
+const userService = new UserService(registerUser);
+
 export default function Register() {
     const [registerForm, setRegisterForm] = useState<RegisterFormState>({ name: '', password: '', email: '' })
+    const [error, setError] = useState<string>('')
 
     const handleRegisterForm = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -17,10 +25,18 @@ export default function Register() {
         }))
     }
 
-    const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log("handleSubmit")
-        console.log("Aquí deberíamos hacer unos controles y eso, antes de subir datos raros")
+        try {
+            const { name, password, email } = registerForm
+            await userService.register(name, email, password)
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                setError(error.message);
+            } else {
+                setError("An unexpected error occurred");
+            }
+        }
     }
 
     return (
@@ -36,7 +52,8 @@ export default function Register() {
                 />
                 <input
                     className="register-form__input"
-                    type="email"
+                    aria-label="email"
+                    type="text"
                     name="email"
                     placeholder="Email"
                     value={registerForm.email}
@@ -50,7 +67,8 @@ export default function Register() {
                     value={registerForm.password}
                     onChange={handleRegisterForm}
                 />
-                <button type="submit">Sign up</button>
+                <p>{error}</p>
+                <button type="submit" aria-label="Sign up">Sign up</button>
             </form>
         </div>
     )
