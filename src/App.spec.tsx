@@ -6,5 +6,5 @@ import App from './App'
 test('Loads and displays title', async () => {
   render(<App />)
 
-  screen.getByRole('heading', { name: /vite \+ react/i })
+  screen.getByRole('button', { name: /sign up/i })
 })
