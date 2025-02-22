@@ -1,5 +1,5 @@
 export interface IDatabaseConnection {
-    connect(): Promise<void>
-    disconnect(): Promise<void>
-    isConnected(): boolean
+  connect(): Promise<void>;
+  disconnect(): Promise<void>;
+  isConnected(): boolean;
 }
