@@ -3,6 +3,7 @@ import "./Register.css";
 import { UserService } from "@application/services/UserService";
 import { UserRepository } from "@infrastructure/data/UserRepository";
 import { RegisterUser } from "@application/usecases/RegisterUser";
+import { PasswordHasher } from "@domain/services/PasswordHasher";
 interface RegisterFormState {
   name: string;
   password: string;
@@ -10,8 +11,9 @@ interface RegisterFormState {
 }
 
 const userRepository = new UserRepository();
-const registerUser = new RegisterUser(userRepository);
-const userService = new UserService(registerUser);
+const passwordHasher = new PasswordHasher();
+const registerUser = new RegisterUser(userRepository, passwordHasher);
+const userService = new UserService({ registerUser });
 
 export default function Register() {
   const [registerForm, setRegisterForm] = useState<RegisterFormState>({
