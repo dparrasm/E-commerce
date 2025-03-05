@@ -1,5 +1,5 @@
 import { User } from "../entities/User";
-import { Email } from "../valueObjects/email";
+import { Email } from "../valueObjects/Email";
 
 export interface IUserRepository {
   findById(id: string): Promise<User | null>;

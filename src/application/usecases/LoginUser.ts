@@ -1,7 +1,7 @@
 import { User } from "@domain/entities/User";
 import { PasswordHasher } from "@domain/services/PasswordHasher";
 import { UserRepository } from "@infrastructure/data/UserRepository";
-import { Email } from "@domain/valueObjects/email";
+import { Email } from "@domain/valueObjects/Email";
 import { Logger } from "@infrastructure/utils/Logger";
 
 export class LoginUser {

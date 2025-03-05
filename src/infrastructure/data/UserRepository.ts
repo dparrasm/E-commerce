@@ -1,6 +1,6 @@
 import { User } from "../../domain/entities/User";
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
-import { Email } from "../../domain/valueObjects/email";
+import { Email } from "../../domain/valueObjects/Email";
 
 export class UserRepository implements IUserRepository {
   private users: User[] = [];

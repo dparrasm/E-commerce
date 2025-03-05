@@ -1,6 +1,6 @@
 import { IPasswordHasher } from "./../../domain/services/PasswordHasher";
 import { User } from "@domain/entities/User";
-import { Email } from "@domain/valueObjects/email";
+import { Email } from "@domain/valueObjects/Email";
 import { IUserRepository } from "@domain/repositories/IUserRepository";
 import { v4 as uuidv4 } from "uuid";
 import { Logger } from "@infrastructure/utils/Logger";
